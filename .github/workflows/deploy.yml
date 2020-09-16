@@ -21,9 +21,9 @@ jobs:
       - name: Env
         #   if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
         run: |
-          echo "SHA ${{ github.sha }} - ${ github.sha }"
-          echo "REF ${{ github.ref }} - ${ github.ref }"
-          echo "EVENT_NAME ${{ github.event_name }} - ${ github.event_name }"
+          echo "SHA ${{ github.sha }}"
+          echo "REF ${{ github.ref }}"
+          echo "EVENT_NAME ${{ github.event_name }}"
 
       # - uses: actions/checkout@v2
 
