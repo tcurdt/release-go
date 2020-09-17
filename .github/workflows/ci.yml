@@ -60,7 +60,7 @@ jobs:
           path: artifacts
 
       - name: Archives
-        run: find artifacts -d 1 -exec tar -C {} -cvzf {}.tgz . \;
+        run: find artifacts -mindepth 1 -maxdepth 1  -exec tar -C {} -cvzf {}.tgz . \;
 
       - name: Release
         uses: softprops/action-gh-release@v1
