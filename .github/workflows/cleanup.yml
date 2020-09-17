@@ -1,0 +1,14 @@
+name: Cleanup
+
+on: [push]
+
+jobs:
+
+  expire:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Expire Artifacts
+      uses: kolpav/purge-artifacts-action@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        expire-in: 1hour
