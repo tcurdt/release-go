@@ -1,6 +1,10 @@
-name: Cleanup
+name: cleanup
 
-on: [push]
+on:
+  schedule:
+    # - cron:  '1 1 1 * *' # once a month
+    - cron:  '1 1 * * 1' # once a week
+    # - cron:  '1 1 * * *' # every day
 
 jobs:
 
