@@ -1,9 +1,9 @@
 name: ci
 
+on: [push, pull_request]
+
 env:
   project: 'release-go'
-
-on: [push, pull_request]
 
 jobs:
 
@@ -11,7 +11,8 @@ jobs:
     strategy:
       matrix:
         go-version: [1.15.x]
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest]
+        # os: [ubuntu-latest, macos-latest, windows-latest]
 
         # include:
         #   - go-version: [1.15.x]

@@ -4,6 +4,9 @@ on:
   release:
     types: [published]
 
+env:
+  project: 'release-rust'
+
 jobs:
 
   dockerhub:
