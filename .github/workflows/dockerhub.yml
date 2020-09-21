@@ -5,7 +5,7 @@ on:
     types: [published]
 
 env:
-  project: 'release-rust'
+  project: 'release-go'
 
 jobs:
 
