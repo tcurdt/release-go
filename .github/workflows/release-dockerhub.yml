@@ -1,0 +1,34 @@
+name: dockerhub
+
+on:
+  release:
+    types: [ published ]
+
+env:
+  project: 'release-go'
+
+jobs:
+  dockerhub:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Login
+      env:
+        DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      run: echo -n ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+    - name: Build
+      run: |
+        echo "SHA=$GITHUB_SHA"
+        docker build --build-arg SHA=$GITHUB_SHA \
+          --label "sha=$GITHUB_SHA" \
+          --tag ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.project }}:${GITHUB_REF/refs\/tags\/v/} \
+          --tag ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.project }}:latest \
+          .
+
+    - name: Push
+      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.project }}
