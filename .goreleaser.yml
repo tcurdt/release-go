@@ -29,8 +29,8 @@ brews:
     repository:
       owner: tcurdt
       name: homebrew-tap
-    alternative_names:
-      - "{{ .ProjectName }}@{{ .Major }}"
+    # alternative_names:
+    #   - "{{ .ProjectName }}@{{ .Major }}"
 
 # https://github.com/nix-community/NUR
 # nix:
@@ -77,21 +77,34 @@ nfpms:
     #   - golang
 
 dockers:
-  image_templates:
+  - image_templates:
     - "tcurdt/{{ .ProjectName }}:latest"
     - "tcurdt/{{ .ProjectName }}:{{ .Tag }}"
     - "tcurdt/{{ .ProjectName }}:v{{ .Major }}"
     # - "gcr.io/tcurdt/{{ .ProjectName }}:latest"
-  build_flag_templates:
+    build_flag_templates:
     - "--label=sha={{.FullCommit}}"
     - "--label=org.opencontainers.image.created={{.Date}}"
     - "--label=org.opencontainers.image.title={{.ProjectName}}"
     - "--label=org.opencontainers.image.revision={{.FullCommit}}"
     - "--label=org.opencontainers.image.version={{.Version}}"
-
-archives:
-  - replacements:
-      darwin: macos
+    - "--pull"
+    - "--platform=linux/amd64"
+    use: buildx
+  # - image_templates:
+  #   - "tcurdt/{{ .ProjectName }}:latest"
+  #   - "tcurdt/{{ .ProjectName }}:{{ .Tag }}-arm64"
+  #   - "tcurdt/{{ .ProjectName }}:v{{ .Major }}-arm64"
+  #   # - "gcr.io/tcurdt/{{ .ProjectName }}:latest"
+  #   build_flag_templates:
+  #   - "--label=sha={{.FullCommit}}"
+  #   - "--label=org.opencontainers.image.created={{.Date}}"
+  #   - "--label=org.opencontainers.image.title={{.ProjectName}}"
+  #   - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+  #   - "--label=org.opencontainers.image.version={{.Version}}"
+  #   - "--pull"
+  #   - "--platform=linux/arm64"
+  #   use: buildx
 
 checksum:
   name_template: 'checksums.txt'
