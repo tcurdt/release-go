@@ -30,7 +30,7 @@ brews:
       owner: tcurdt
       name: homebrew-tap
     alternative_names:
-      - {{ .ProjectName }}@{{ .Major }}
+      - "{{ .ProjectName }}@{{ .Major }}"
 
 # https://github.com/nix-community/NUR
 # nix:
