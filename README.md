@@ -10,4 +10,3 @@ The following secrets need to be set for the repository:
 
 - DOCKERHUB_USERNAME
 - DOCKERHUB_TOKEN
-- PAT (github personal access token)

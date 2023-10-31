@@ -2,11 +2,6 @@ FROM golang:1.21-alpine AS builder
 RUN apk update && apk upgrade \
  && apk add --no-cache ca-certificates upx
 
-# FROM alpine:edge AS builder
-# RUN apk update && apk upgrade \
-#  && apk add --no-cache ca-certificates \
-#  && apk add --no-cache --update go=1.15.2-r0 upx
-
 WORKDIR /app
 ADD . /app
 RUN echo "nobody:x:65534:65534:Nobody:/:" > /app/passwd

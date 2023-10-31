@@ -1,3 +1,3 @@
 module example.com/release-go
 
-go 1.19
+go 1.21

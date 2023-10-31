@@ -1,0 +1,107 @@
+before:
+  hooks:
+    - go mod tidy
+    # - go generate ./...
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    hooks:
+      pre:
+        # - script.sh
+      post:
+        # - upx "{{ .Path }}"
+        # - codesign -project="{{ .ProjectName }}" "{{ .Path }}"
+
+universal_binaries:
+  - replace: true
+
+brews:
+  - homepage: https://github.com/tcurdt/{{ .ProjectName }}
+    # name: release-go
+    repository:
+      owner: tcurdt
+      name: homebrew-tap
+    alternative_names:
+      - {{ .ProjectName }}@{{ .Major }}
+
+# https://github.com/nix-community/NUR
+# nix:
+#   - repository:
+#       owner: tcurdt
+#       name: nur
+#     name: release-go
+#     homepage: https://github.com/tcurdt/{{ .ProjectName }}
+#     description: Deliver Go binaries as fast and easily as possible
+#     path: pkgs/goreleaser/default.nix
+#     license: mit
+#     # extra_install: |-
+#     #   installManPage ./manpages/goreleaser.1.gz
+#     #   installShellCompletion ./completions/*
+
+
+nfpms:
+  - homepage: https://github.com/tcurdt/{{ .ProjectName }}
+    description: |-
+      Some foo package
+    maintainer: Torsten Curdt <tcurdt@vafer.org>
+    license: MIT
+    vendor: tcurdt
+    bindir: /usr/bin
+    section: utils
+    deb:
+      lintian_overrides:
+        - statically-linked-binary
+        - changelog-file-missing-in-native-package
+    # contents:
+    #   - src: ./completions/goreleaser.bash
+    #     dst: /usr/share/bash-completion/completions/goreleaser
+    #     file_info:
+    #       mode: 0644
+    file_name_template: "{{ .ConventionalFileName }}"
+    formats:
+      - apk
+      - deb
+      - rpm
+      - archlinux
+    # dependencies:
+    #   - git
+    # recommends:
+    #   - golang
+
+dockers:
+  image_templates:
+    - "tcurdt/{{ .ProjectName }}:latest"
+    - "tcurdt/{{ .ProjectName }}:{{ .Tag }}"
+    - "tcurdt/{{ .ProjectName }}:v{{ .Major }}"
+    # - "gcr.io/tcurdt/{{ .ProjectName }}:latest"
+  build_flag_templates:
+    - "--label=sha={{.FullCommit}}"
+    - "--label=org.opencontainers.image.created={{.Date}}"
+    - "--label=org.opencontainers.image.title={{.ProjectName}}"
+    - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+    - "--label=org.opencontainers.image.version={{.Version}}"
+
+archives:
+  - replacements:
+      darwin: macos
+
+checksum:
+  name_template: 'checksums.txt'
+
+snapshot:
+  name_template: "{{ incpatch .Version }}-dev"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
