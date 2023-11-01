@@ -18,7 +18,7 @@ builds:
     flags:
       - -trimpath
     ldflags:
-      - -s -w
+      - -s -w -X main.version={{ .Version }} -X main.commit={{ .Commit }} -X main.date={{ .CommitDate }} -X main.treeState={{ .IsGitDirty }} -X main.builtBy=goreleaser
     hooks:
       pre:
         # - script.sh
@@ -132,7 +132,7 @@ release:
   name_template: "v{{ .Version }}"
   header: |
     ### {{ .Now.Format "2006-01-02" }}
-    **Full Changelog**: [{{ .PreviousTag }} ⮕ {{ .Tag }}](https://github.com/tcurdt/release-go/compare/{{ .PreviousTag }}...{{ .Tag }})
+    **Full Changelog**: [{{ .PreviousTag }} → {{ .Tag }}](https://github.com/tcurdt/release-go/compare/{{ .PreviousTag }}...{{ .Tag }})
   # footer: |
 
 checksum:
