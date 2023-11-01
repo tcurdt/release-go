@@ -17,9 +17,9 @@ builds:
       - "7"
     mod_timestamp: "{{ .CommitTimestamp }}"
     flags:
-      - "-trimpath"
+      - -trimpath
     ldflags:
-      - -s -w -X main.version={{ .Version }} -X main.commit={{ .Commit }} -X main.date={{ .CommitDate }} -X main.treeState={{ .IsGitDirty }} -X main.builtBy=goreleaser
+      - -s -w
     hooks:
       pre:
         # - script.sh

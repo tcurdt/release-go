@@ -8,16 +8,22 @@ import (
 )
 
 var (
-	version bool
-	port    *int
+    version = "dev"
+    commit  = "none"
+    date    = "unknown"
 )
 
-func init() {
-	flag.BoolVar(&version, "v", false, "print version")
-	port = flag.Int("port", 2015, "port number")
+type Args struct {
+    Version bool
+    Port    int
 }
 
 func main() {
+
+	args := Args{}
+
+	flag.BoolVar(&args.Version, "v", false, "print version")
+	flag.IntVar(&args.Port, "port", 2015, "Port number")
 
 	flag.Parse()
 
@@ -26,8 +32,8 @@ func main() {
 		os.Exit(1)
 	}
 
-	if version {
-		fmt.Println("Version 1.0")
+	if args.Version {
+		fmt.Printf("Version %s (%s), %s\n", version, commit, date)
 		return
 	}
 
@@ -35,7 +41,7 @@ func main() {
 		fmt.Fprintf(w, "Hello, you've requested: %s\n", r.URL.Path)
 	})
 
-	fmt.Printf("Listening on port %d\n", *port)
+	fmt.Printf("Listening on port %d\n", args.Port)
 
-	http.ListenAndServe(fmt.Sprintf(":%d", *port), nil)
+	http.ListenAndServe(fmt.Sprintf(":%d", args.Port), nil)
 }
