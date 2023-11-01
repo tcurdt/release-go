@@ -27,8 +27,8 @@ builds:
         # - upx "{{ .Path }}"
         # - codesign -project="{{ .ProjectName }}" "{{ .Path }}"
 
-universal_binaries:
-  - replace: true
+# universal_binaries:
+#   - replace: true
 
 metadata:
   mod_timestamp: "{{ .CommitTimestamp }}"
@@ -81,8 +81,8 @@ nfpms:
     formats:
       - apk
       - deb
-      - rpm
-      - archlinux
+      # - rpm
+      # - archlinux
     # dependencies:
     #   - git
     # recommends:
