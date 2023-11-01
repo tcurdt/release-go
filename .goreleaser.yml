@@ -17,9 +17,9 @@ builds:
       - "7"
     mod_timestamp: "{{ .CommitTimestamp }}"
     flags:
-      - -trimpath
+      - "-trimpath"
     ldflags:
-      - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{ .CommitDate }} -X main.builtBy=goreleaser -X main.treeState={{ .IsGitDirty }}
+      - -s -w -X main.version={{ .Version }} -X main.commit={{ .Commit }} -X main.date={{ .CommitDate }} -X main.treeState={{ .IsGitDirty }} -X main.builtBy=goreleaser
     hooks:
       pre:
         # - script.sh
@@ -152,10 +152,10 @@ changelog:
 
 release:
   name_template: "v{{ .Version }}"
+  # header: |
+  #   ## Release {{ .Tag }} {{ .Version }} ({{ .Date }})
   footer: |
     **Full Changelog**: https://github.com/tcurdt/release-go/compare/{{ .PreviousTag }}...{{ .Tag }}
-
-    Some more text here
 
 # announce:
 #   twitter:
