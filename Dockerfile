@@ -1,12 +1,9 @@
-FROM golang:1.21-alpine AS builder
+FROM alpine:3 AS builder
 RUN apk update && apk upgrade \
- && apk add --no-cache ca-certificates upx
-
+ && apk add --no-cache ca-certificates
 WORKDIR /app
 ADD . /app
 RUN echo "nobody:x:65534:65534:Nobody:/:" > /app/passwd
-RUN CGO_ENABLED=0 go mod download \
- && CGO_ENABLED=0 go build -ldflags="-s -w" && find . && upx release-go
 
 FROM scratch
 WORKDIR /app
