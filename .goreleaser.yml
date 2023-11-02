@@ -98,6 +98,7 @@ brews:
 #     #   installManPage ./manpages/goreleaser.1.gz
 #     #   installShellCompletion ./completions/*
 
+# docker context use default
 dockers:
   - image_templates:
     - "tcurdt/{{ .ProjectName }}:latest"
@@ -112,7 +113,7 @@ dockers:
     - "--label=org.opencontainers.image.version={{.Version}}"
     - "--pull"
     - "--platform=linux/amd64"
-  #  use: buildx
+    use: buildx
   # - image_templates:
   #   - "tcurdt/{{ .ProjectName }}:latest"
   #   - "tcurdt/{{ .ProjectName }}:v{{ .Version }}"
