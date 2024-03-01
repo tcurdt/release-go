@@ -9,13 +9,16 @@
       ];
     }
   )
-, buildGoApplication ? pkgs.buildGoApplication
+, mkGoEnv ? pkgs.mkGoEnv
+, gomod2nix ? pkgs.gomod2nix
 }:
 
-buildGoApplication {
-  pname = "release-go";
-  version = "0.1";
-  pwd = ./.;
-  src = ./.;
-  modules = ./gomod2nix.toml;
+let
+  goEnv = mkGoEnv { pwd = ./.; };
+in
+pkgs.mkShell {
+  packages = [
+    goEnv
+    gomod2nix
+  ];
 }
