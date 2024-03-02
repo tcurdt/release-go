@@ -27,8 +27,6 @@
           #   # overlays = [ self.overlays.default ];
           # };
 
-          nixosModules.default = (import ./services.nix);
-
           packages.default = callPackage ./. {
             inherit (gomod2nix.legacyPackages.${system}) buildGoApplication;
           };
@@ -37,6 +35,5 @@
             inherit (gomod2nix.legacyPackages.${system}) mkGoEnv gomod2nix;
           };
         })
-    );
-
+    ) // { nixosModules.default = import ./services.nix; };
 }
