@@ -5,10 +5,10 @@ with lib;
 let
   cfg = config.services.release-go;
 
+  port = toString cfg.port;
+
   # format = pkgs.formats.yaml { };
   # configFile = format.generate "config.yaml" cfg.settings;
-
-  port = cfg.port;
 
 in
 {

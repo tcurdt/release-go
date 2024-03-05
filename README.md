@@ -17,3 +17,9 @@ The following secrets need to be set for the repository:
 - DOCKERHUB_USERNAME
 - DOCKERHUB_TOKEN
 - PAT (to publish to the homebrew tap)
+
+# NixOS
+
+```
+nix flake update release-go
+```
