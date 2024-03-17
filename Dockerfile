@@ -1,9 +1,10 @@
-FROM alpine:3 AS builder
+FROM golang:1.22-alpine AS builder
 RUN apk update && apk upgrade \
  && apk add --no-cache ca-certificates
 WORKDIR /app
 ADD . /app
 RUN echo "nobody:x:65534:65534:Nobody:/:" > /app/passwd
+RUN go build ./...
 
 FROM scratch
 WORKDIR /app
