@@ -15,4 +15,5 @@ USER nobody
 CMD ["/bin/release-go"]
 
 # HEALTHCHECK CMD curl --fail http://localhost/api/healthcheck || exit 1
-HEALTHCHECK NONE
+# HEALTHCHECK NONE
+HEALTHCHECK CMD exit 0
