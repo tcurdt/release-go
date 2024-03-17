@@ -13,3 +13,6 @@ COPY --from=builder /app/passwd /etc/passwd
 COPY --from=builder /app/release-go /bin/release-go
 USER nobody
 CMD ["/bin/release-go"]
+
+# HEALTHCHECK CMD curl --fail http://localhost/api/healthcheck || exit 1
+HEALTHCHECK NONE
