@@ -16,4 +16,4 @@ CMD ["/bin/release-go"]
 
 # HEALTHCHECK CMD curl --fail http://localhost/api/healthcheck || exit 1
 # HEALTHCHECK NONE
-HEALTHCHECK CMD exit 0
+# HEALTHCHECK CMD exit 0
