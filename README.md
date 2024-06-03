@@ -21,5 +21,6 @@ The following secrets need to be set for the repository:
 # NixOS
 
 ```
+nix develop
 nix flake update release-go
 ```
